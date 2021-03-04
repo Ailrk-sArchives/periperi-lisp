@@ -1,9 +1,7 @@
-#include <iostream>
+#include <inttypes.h>
 #include <stdio.h>
 
 int64_t entry();
-
-class PeriperiLispRTS {};
 
 int main(void) {
   int64_t result = entry();
