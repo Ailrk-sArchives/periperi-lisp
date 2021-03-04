@@ -1,10 +1,13 @@
 ;;;; periperi-lisp.asd
 
 (asdf:defsystem #:periperi-lisp
-  :description "Describe periperi-lisp here"
-  :author "Your Name <your.name@example.com>"
-  :license  "Specify license here"
+  :description "A compiler/interpreter for periperi-lisp"
+  :author "Your Name <jimmy123good@homtail.com>"
+  :license  "MIT"
   :version "0.0.1"
-  :serial t
-  :components ((:file "package")
-               (:file "periperi-lisp")))
+  :components
+  ((:file "package")
+   (:file "peri-peri-lisp")
+   (:file "x86-codegen")
+   (:file "interpreter")
+   (:file "compiler")))
