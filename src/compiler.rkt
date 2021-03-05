@@ -12,6 +12,11 @@
 
 ; type Label = Symbol
 
+; type Expr =
+; | integer
+; | '(add1 ,Expr)
+; | '(sub ,Expr)
+
 ; type Arg =
 ; | Reg
 ; | Integer
