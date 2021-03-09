@@ -1,7 +1,7 @@
 #lang racket
 
-(require "interp.rkt")
 (provide (all-defined-out))
+(require "interp.rkt")
 
 ;; interpret file.
 (define (main fn)

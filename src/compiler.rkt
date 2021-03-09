@@ -6,8 +6,10 @@
 ; type Asm = [Listof Instruction]
 
 ; type Instruction =
-; | ‘ret
-; | ‘(mov ,Arg ,Arg)
+; | 'ret
+; | '(mov ,Arg ,Arg)
+; | '(add ,Arg ,Arg)
+; | '(sub ,Arg ,Arg)
 ; | Label
 
 ; type Label = Symbol
@@ -15,7 +17,7 @@
 ; type Expr =
 ; | integer
 ; | '(add1 ,Expr)
-; | '(sub ,Expr)
+; | '(sub1 ,Expr)
 
 ; type Arg =
 ; | Reg
@@ -38,6 +40,16 @@
       (string-append
         "\tmov " (arg->string a1) ", " (arg->string a2) "\n"))
     ('ret "\tret\n")
+    (`(add ,a1 ,a2)
+      (string-append "\tadd "
+                     (arg->string a1)
+                     ", "
+                     (arg->string a2) "\n"))
+    (`(sub ,a1 ,a2)
+      (string-append "\tsub "
+                     (arg->string a1)
+                     ", "
+                     (arg->string a2) "\n"))
     (label (string-append (label->string label) ":\n"))))
 
 ;; Arg -> String
@@ -63,7 +75,19 @@
 
 ;; (display-asm (compile 3))
 
+(define (compile-e e)
+  (match e
+    ((? integer? i) `(mov rax ,i))
+    (`(add1 ,e0)
+      (let ((c0 (compile-e e0)))
+        `(,@c0
+           (add rax 1))))
+    (`(sub1 ,e0)
+      (let ((c0 (compile-e e0)))
+        `(,@c0
+           (sub rax 1))))))
+
 (define (compile e)
-  `(entry
-     (move rax ,e)
-     ret))
+  (append '(entry)
+          (compile-e e)
+          '(ret)))
